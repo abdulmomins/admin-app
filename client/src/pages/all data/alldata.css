@@ -1,0 +1,188 @@
+table {
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: left;
+  border-color: inherit;
+  text-indent: 0;
+  color: rgb(156, 163, 175);
+  width: 100%;
+}
+
+.tabilcon {
+  overflow: hidden;
+  padding: 20px;
+  background: #f7f7f7;
+  margin-top: 8px;
+  height: 100vh;
+}
+
+.py-3 {
+  padding-bottom: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.tableserch {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  align-items: center;
+}
+
+.tableserch .search input:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.tableserch .search input {
+  width: 280px;
+  padding: 9px 10px 9px 14px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  margin-bottom: 14px;
+}
+
+.tablerow {
+  background: rgb(241 242 243);
+  border-bottom: 1px solid rgb(216 217 217);
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+}
+
+.pl-3 {
+  padding-left: 0.75rem;
+
+  line-height: 1.5rem;
+}
+
+.font-size {
+  font-size: 1rem;
+  width: 260px;
+}
+
+td {
+  width: 50%;
+  text-align: center;
+}
+
+th.px-6.py-3 {
+  width: 10%;
+  text-align: center;
+}
+
+a.btn-primary {
+  background: #00a1ff;
+  color: #fff;
+  width: 64px;
+  display: inline-block;
+  padding: 4px;
+  margin-top: 3px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+button.btn-danger {
+  background: #f30606;
+  color: #fff;
+  width: 64px;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 3px;
+}
+
+tr.tablerow:hover {
+  background: #ffffff;
+  cursor: pointer;
+}
+
+th.flex img {
+  border-radius: 50%;
+  width: 25%;
+}
+
+/*react hot taost custom style start*/
+.error-toast::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 42px;
+  background: #eb4f6c;
+  right: 98.7%;
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+  top: 1px;
+}
+
+.success-toast::after {
+  /* Your styles for the :after pseudo-element */
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 44px;
+  background: #67eb4f;
+  right: 97.9%;
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+  top: 0px;
+}
+
+/*react hot taost custom style end*/
+.pagination .page-item {
+  list-style: none;
+  padding: 3px 2px;
+  margin-left: -1px;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+.pagination .page-item .page-link {
+  color: #007bff;
+}
+.pagination {
+  display: flex;
+  margin-top: 20px;
+}
+.status {
+  background: #00a1ff;
+  width: 104px;
+  margin: auto;
+  border-radius: 4px;
+  color: white;
+  font-weight: 700;
+  padding: 4px;
+}
+.deviceStatus {
+  width: 53px;
+  margin: auto;
+  padding: 3px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 700;
+  background: #00a1ff;
+}
+.dataid {
+  width: 60px;
+  font-weight: 800;
+}
+td.idwith {
+  width: 10%;
+}

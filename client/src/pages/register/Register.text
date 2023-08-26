@@ -1,0 +1,112 @@
+import React, { useState } from "react";
+import convertToBase64 from "../../helper/Converter";
+import { useNavigate, Link } from "react-router-dom";
+import { useFormik } from "formik";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import "./register.css";
+const Register = () => {
+  const navigate = useNavigate();
+  const [file, setFile] = useState();
+  const initialValues = {
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+  };
+  const registerPro = async (credentials) => {
+    try {
+      const { data } = await axios.post(`/admin/register`, credentials);
+      if (data.error) {
+        toast.error(data.error, {
+          className: "error-toast",
+        });
+      } else {
+        toast.success("Registration Successfull...!", {
+          className: "success-toast",
+        });
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const { values, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: initialValues,
+    validateOnBlur: false,
+    validateOnChange: false,
+    onSubmit: async (values) => {
+      values = await Object.assign(values, { profile: file || "" });
+      registerPro(values);
+    },
+  });
+  /** formik doensn't support file upload so we need to create this handler */
+  const onUpload = async (e) => {
+    const base64 = await convertToBase64(e.target.files[0]);
+    setFile(base64);
+  };
+  return (
+    <>
+      <div className="container">
+        <form id="register" onSubmit={handleSubmit}>
+          <h3>Sign Up</h3>
+          <div className="fromGroup">
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <div className="fromGroup">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <div className="fromGroup">
+            <input
+              type="number"
+              name="phone"
+              placeholder="Phone"
+              value={values.phone}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <div className="fromGroup">
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <div className="fromGroup">
+            <input type="file" onChange={onUpload} name="profile" />
+          </div>
+          <div className="fromGroup">
+            <button type="submit" id="btn">
+              NEXT
+            </button>
+          </div>
+          <div className="link">
+            <Link to="/login">Sign In</Link>
+            <Link to="/register">Forget Password</Link>
+          </div>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default Register;

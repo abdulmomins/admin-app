@@ -1,0 +1,75 @@
+/* Remove extra left and right margins, due to padding */
+.cardColumn {
+  display: grid;
+  grid-template-columns: 220px 220px 220px 220px 220px 220px;
+  gap: 30px;
+}
+.cardRow {
+  margin: 20px -40px;
+  display: flex;
+  justify-content: center;
+}
+.cardImg {
+  width: 220px;
+}
+/* Clear floats after the columns */
+.cardRow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 1200px) {
+  .cardColumn {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .cardColumn {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  .cardRow {
+    display: inline-block;
+    width: 50%;
+    margin-left: 8px;
+  }
+}
+
+/* Style the counter cards */
+.card1 {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #f1f1f1;
+}
+.cardDetails {
+  padding: 10px;
+  width: 70%;
+}
+/* pagination style  start*/
+ul#pagination1 {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+ul#pagination1 li#page-item1 {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  padding: 3px 8px;
+}
+li.page-item2 {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  padding: 3px 16px;
+}
+#pagination1 #page-item1 .page-link1 {
+  color: #007bff;
+}
+#pagination1 .page-item2 .page-link2 {
+  color: #007bff;
+}
+/* pagination style  end*/

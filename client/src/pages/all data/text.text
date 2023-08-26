@@ -1,0 +1,157 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import "./alldata.css";
+
+const Cancele = ({ setProgress }) => {
+  const [user, setUser] = useState([]);
+  const [filter, setFilter] = useState([]);
+  const [query, setQuery] = useState("");
+  //  pagination and loading =================  start
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [userPerPage, setUserPerPage] = useState(1);
+  //  pagination and loading =================  end
+  // user data fatche --------------------start
+  useEffect(() => {
+    setProgress(40);
+    setTimeout(() => {
+      setProgress(100);
+    }, 500);
+    alluser();
+  }, []);
+  // all user function ----------- start
+  function alluser() {
+    setLoading(true);
+    axios
+      .get("/user/users")
+      .then((res) => {
+        setUser(res.data);
+        setFilter(res.data);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }
+  // all user function ----------- end
+  // user data fatche --------------------end
+
+  //search filter logic-------------- start
+  const handlesearch = (event) => {
+    const getSearch = event.target.value;
+    if (getSearch.length > 0) {
+      const searchdata = user.filter((item) =>
+        item.name.toLowerCase().includes(getSearch)
+      );
+      setUser(searchdata);
+    } else {
+      setUser(filter);
+    }
+    setQuery(getSearch);
+  };
+  //search filter logic-------------- end
+  // user data deleted --------------------start
+
+  const handleDelete = async (id) => {
+    const { data } = await axios.delete(`/user/deleted/${id}`, id);
+    if (!data.error) {
+      toast.error(data.error, {
+        className: "error-toast",
+      });
+    } else {
+      toast.success("User Deleted Successfully", {
+        className: "success-toast",
+      });
+      alluser();
+    }
+  };
+
+  // user data deleted --------------------end
+
+  return (
+    <div className="tabilcon">
+      <div className="tableserch">
+        <div className="search">
+          <input 
+            type="text"
+            name="name"
+            value={query}
+            onChange={(e) => handlesearch(e)}
+            placeholder="Search for users"
+          />
+        </div>
+      </div>
+      <table>
+        <thead
+          style={{
+            textTransform: "uppercase",
+            background: " rgba(55, 65, 81,1)",
+            color: "rgba(156, 163, 175,1)",
+            fontSize: "0.75rem",
+            lineHeight: "1rem",
+          }}
+        >
+          <tr>
+            <th scope="col" className="px-6 py-3">
+              <div className="td">#</div>
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Name
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Device
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Status
+            </th>
+
+            <th scope="col" className="px-6 py-3">
+              Action
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {user.map((data, index) => {
+            return (
+              <tr key={index} className="tablerow">
+                <th className="px-6 py-3">
+                  <div className="td">{index + 1}</div>
+                </th>
+                <th scope="row" className="flex">
+                  <img src={data.profile} alt="images" width={60} />
+                  <div className="pl-3">
+                    <div className="font-size">{data.name}</div>
+                  </div>
+                </th>
+                <td>Pc</td>
+                <td>
+                  <div>{data.status}</div>
+                </td>
+
+                <td>
+                  <div className="tablelink">
+                    <Link
+                      className="btn-primary"
+                      to={`/userUpdate/${data._id}`}
+                    >
+                      Edit user
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(data._id)}
+                      className="btn-danger"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default Cancele;

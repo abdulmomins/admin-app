@@ -1,0 +1,147 @@
+import React, { useState, useEffect, useContext } from "react";
+import convertToBase64 from "../../helper/Converter";
+import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import "./profile.css";
+import { context } from "../../context/auth";
+const Profile = () => {
+  const { user, setUser } = useContext(context);
+  const [file, setFile] = useState();
+  const initialValues = {
+    name: user.name || "",
+    email: user.email || "",
+    phone: user.phone || "",
+    password: user.password || "",
+  };
+  const profilePro = async (credentials) => {
+    try {
+      const { data } = await axios.patch(`/admin/updateuser`, credentials);
+      if (data.error) {
+        toast.error(data.error, {
+          className: "error-toast",
+        });
+      } else {
+        toast.success("User Update successfull...!", {
+          className: "success-toast",
+        });
+        navigate("/profile");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const navigate = useNavigate();
+  const formik = useFormik({
+    initialValues: initialValues,
+    enableReinitialize: true,
+    validateOnBlur: false,
+    validateOnChange: false,
+    onSubmit: async (values) => {
+      values = await Object.assign(values, { profile: file || "" });
+      profilePro(values);
+    },
+  });
+  /** formik doensn't support file upload so we need to create this handler */
+  const onUpload = async (e) => {
+    const base64 = await convertToBase64(e.target.files[0]);
+    setFile(base64);
+  };
+  //show profile data ------------------------- start
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("/admin/adminuser");
+      setUser(response.data);
+    } catch (error) {
+      console.log(error);
+      navigate("/login");
+    }
+  };
+  //show profile data ------------------------- end
+  return (
+    <>
+      <div className="profileCon">
+        <form id="profile" onSubmit={formik.handleSubmit}>
+          <div className="image">
+            <img src={user.profile} alt={user.name} />
+          </div>
+          <div className="border"></div>
+          <div className="mainprofileinput">
+            <div className="profileDiv">
+              <div className="profileGroup">
+                <label htmlFor="profilepic">Profile</label>
+                <input
+                  type="file"
+                  id="profilepic"
+                  onChange={onUpload}
+                  name="profile"
+                />
+              </div>
+
+              <div className="profileGroup">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  id="name"
+                  {...formik.getFieldProps("name")}
+                />
+              </div>
+            </div>
+            <div className="profileDiv">
+              <div className="profileGroup ml">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  id="email"
+                  {...formik.getFieldProps("email")}
+                />
+              </div>
+
+              <div className="profileGroup ml">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  id="password"
+                  {...formik.getFieldProps("password")}
+                />
+              </div>
+            </div>
+            <div className="profileDiv">
+              <div className="profileGroup ml">
+                <label htmlFor="phone">Phone</label>
+                <input
+                  type="phone"
+                  name="phone"
+                  placeholder="Phone"
+                  id="phone"
+                  {...formik.getFieldProps("phone")}
+                />
+              </div>
+              <div className="profileGroup ml">
+                <label htmlFor="name">Name</label>
+                <input type="text" name="name" id="" />
+              </div>
+            </div>
+          </div>
+          <div className="updatebtn">
+            <button type="submit" id="btn">
+              UPDATE
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default Profile;

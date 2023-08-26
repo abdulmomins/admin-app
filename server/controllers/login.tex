@@ -1,0 +1,93 @@
+//===================login function
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email && !password) {
+      return res.json({
+        error: "Please fill the all data",
+      });
+    }
+    //user validation
+    if (!email) {
+      return res.json({
+        error: "Email is required",
+      });
+    }
+    if (!password) {
+      return res.json({
+        error: "Password is required",
+      });
+    }
+    // check if user
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.json({
+        error: "User Not Found, Please Register",
+      });
+    }
+    // check if password match
+    const match = await bcrypt.compare(password, user.password);
+    if (match) {
+      const token = jwt.sign(
+        { email: user.email, id: user._id, name: user.name },
+        process.env.JWT_SECRET,
+        { expiresIn: "1d" }
+      );
+      res.json("token", token);
+    }
+    if (!match) {
+      return res.json({
+        error: "Password do not match",
+      });
+    }
+  } catch (error) {}
+};
+
+
+
+//===================login function
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email && !password) {
+      return res.json({
+        error: "Please fill the all data",
+      });
+    }
+    //user validation
+    if (!email) {
+      return res.json({
+        error: "Email is required",
+      });
+    }
+    if (!password) {
+      return res.json({
+        error: "Password is required",
+      });
+    }
+    // check if user
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.json({
+        error: "User Not Found, Please Register",
+      });
+    }
+    // check if password match
+    const match = await bcrypt.compare(password, user.password);
+    if (match) {
+      const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
+        expiresIn: "1d",
+      });
+      res.cookie("token", token);
+      res.json("success");
+    }
+    if (!match) {
+      return res.json({
+        error: "Password is required",
+      });
+    }
+    return res.json("succet");
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -1,0 +1,25 @@
+.navlink .navlinkbar {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px -0.05px 2.6px;
+  width: 300px;
+  height: 100vh;
+  padding-top: 20px;
+}
+.navlink nav {
+  display: grid;
+}
+.navlink {
+  float: left;
+}
+nav a {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 18px;
+  color: #312c2c;
+}
+a.active {
+  background: rgb(237, 143, 250);
+  border-left: 6px solid #fb00ff;
+}
+svg {
+  margin-right: 10px;
+}

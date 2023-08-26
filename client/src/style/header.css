@@ -1,0 +1,107 @@
+.headaer {
+  display: flex;
+  width: 100%;
+  background: #fbfbfb;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  justify-content: space-between;
+  padding: 10px 30px 4px 30px;
+}
+.left {
+  display: flex;
+}
+svg.svg-inline--fa.fa-table-list {
+  margin-top: 12px;
+  font-size: 20px;
+  color: #a606a7;
+}
+h2 {
+  margin-left: 8px;
+  font-size: 20px;
+  margin-top: 7px;
+}
+.right button#headerbtn {
+  border: none;
+  width: 50px;
+  border-radius: 50%;
+}
+.userinfo img {
+  width: 80px;
+  border-radius: 50%;
+}
+.right button img {
+  width: 100%;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.minifrom {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  position: absolute;
+  right: 0;
+  background: #fff;
+  top: 6%;
+  border-radius: 7px;
+  width: 250px;
+  z-index: 1;
+}
+.userinfo {
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: #474646;
+  padding: 20px 20px 5px 20px;
+  border-bottom: 1px solid #dfdfdf;
+  margin-bottom: 0px;
+}
+.userlink p {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+p a {
+  color: #474646;
+  padding: 8px;
+  display: inherit;
+}
+.userlink p a.active {
+  background: rgb(237, 143, 250);
+  border-left: 6px solid #fb00ff;
+}
+.userlink p a svg {
+  margin-left: 10px;
+}
+button#logoutbtn {
+  border: none;
+  background-color: #fff;
+  font-weight: 600;
+  color: #474646;
+  padding: 8px;
+  font-size: 15.9px;
+  margin-left: 7px;
+  cursor: pointer;
+}
+
+/*react hot taost custom style start*/
+.error-toast::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 42px;
+  background: #eb4f6c;
+  right: 98.7%;
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+  top: 1px;
+}
+
+.success-toast:after {
+  /* Your styles for the :after pseudo-element */
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 44px;
+  background: #67eb4f;
+  right: 99%;
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+  top: 0px;
+}
+/*react hot taost custom style end*/

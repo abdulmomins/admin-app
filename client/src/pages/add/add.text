@@ -1,0 +1,76 @@
+import React, { useState } from "react";
+import "./add.css";
+import convertToBase64 from "../../helper/Converter";
+import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+const Add = () => {
+  const [file, setFile] = useState();
+  const initialValues = {
+    name: "",
+  };
+  const allUser = async (credentials) => {
+    try {
+      const { data } = await axios.post(`/user/adduser`, credentials);
+      if (data.error) {
+        toast.error(data.error, {
+          className: "error-toast",
+        });
+      } else {
+        toast.success("User  Add Successfull...!", {
+          className: "success-toast",
+        });
+        navigate("/main");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const navigate = useNavigate();
+  const { values, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: initialValues,
+    validateOnBlur: false,
+    validateOnChange: false,
+    onSubmit: async (values) => {
+      values = await Object.assign(values, { profile: file || "" });
+      allUser(values);
+    },
+  });
+  /** formik doensn't support file upload so we need to create this handler */
+  const onUpload = async (e) => {
+    const base64 = await convertToBase64(e.target.files[0]);
+    setFile(base64);
+  };
+  return (
+    <div>
+      <div className="container">
+        <form id="add" onSubmit={handleSubmit}>
+          <h3>Add</h3>
+          <div className="addGroup">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <div className="addGroup">
+            <label htmlFor="profile">Picture</label>
+            <input type="file" onChange={onUpload} name="profile" />
+          </div>
+          <div className="addGroup">
+            <button type="submit" id="btn">
+              ADD
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Add;

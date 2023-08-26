@@ -1,0 +1,121 @@
+.profileCon {
+  display: flex;
+  padding: 0px 20px;
+}
+.mainprofileinput {
+  margin-top: 20px;
+  display: flex;
+  margin-left: -22px;
+}
+.profileDiv {
+  width: 50%;
+  margin-left: 20px;
+}
+form#profile {
+  width: 100%;
+  background: #f1f0f0;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  margin-top: 20px;
+  padding: 60px;
+  border-radius: 10px;
+}
+.image img {
+  width: 100px;
+  border-radius: 50%;
+}
+.border {
+  border: 1px solid #d1cccc;
+  margin-top: 20px;
+}
+.profileGroup {
+  margin-top: 10px;
+}
+.profileGroup label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #4d4b4b;
+  line-height: 2.2;
+  margin-left: 4px;
+}
+.profileGroup input {
+  width: 100%;
+  padding: 9px 13px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+}
+.profileGroup input:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+select.gender {
+  display: flex;
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  color: #495057;
+  outline: none;
+  padding: 12px;
+  margin-top: 0px;
+}
+#profilepic[type="file"]::file-selector-button {
+  background-color: #f6f6f8;
+  border: none;
+  width: 100px;
+  height: 42px;
+  cursor: pointer;
+  border-right: 1px solid rgb(197, 195, 195);
+}
+input#profilepic {
+  padding: 0px;
+}
+.updatebtn {
+  display: flex;
+  width: 32.3%;
+}
+.updatebtn button {
+  width: 100%;
+  background: #c724c2;
+  margin-top: 20px;
+  padding: 14px 13px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+/*react hot taost custom style start*/
+.error-toast::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 42px;
+  background: #eb4f6c;
+  right: 98.7%;
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+  top: 1px;
+}
+
+.success-toast:after {
+  /* Your styles for the :after pseudo-element */
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 44px;
+  background: #67eb4f;
+  right: 97.9%;
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+  top: 0px;
+}
+/*react hot taost custom style end*/

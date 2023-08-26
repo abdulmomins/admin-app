@@ -1,0 +1,162 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import "./alldata.css";
+//import User from "./User";
+import Pagination from "./Pagination";
+const Cancele = ({ setProgress }) => {
+  const [user, setUser] = useState([]);
+
+  //  pagination and loading =================  start
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [userPerPage] = useState(3);
+  //  pagination and loading =================  end
+  // user data fatche --------------------start
+  useEffect(() => {
+    setProgress(40);
+    setTimeout(() => {
+      setProgress(100);
+    }, 500);
+    alluser();
+  }, []);
+  // all user function ----------- start
+  function alluser() {
+    setLoading(true);
+    setTimeout(() => {
+      axios
+        .get("/user/users")
+        .then((res) => {
+          setUser(res.data);
+          setLoading(false);
+        })
+        .catch((err) => console.log(err));
+    }, 1000);
+  }
+
+  if (loading) {
+    return (
+      <div class="spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    );
+  }
+
+  //get current page ================ start
+
+  const indexOfLastUser = currentPage * userPerPage;
+  const indexOfFirstUser = indexOfLastUser - userPerPage;
+  const currentUser = user.slice(indexOfFirstUser, indexOfLastUser);
+  //get current page ================ end
+
+  //change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // delete function ====================== start
+  const handleDelete = async (id) => {
+    const { data } = await axios.delete(`/user/deleted/${id}`, id);
+    if (!data.error) {
+      toast.error(data.error, {
+        className: "error-toast",
+      });
+    } else {
+      toast.success("User Deleted Successfully", {
+        className: "success-toast",
+      });
+    }
+  };
+  // delete function ====================== end
+
+  return (
+    <div className="container">
+      <Pagination
+        userPerPage={userPerPage}
+        totalUser={user.length}
+        paginate={paginate}
+      />
+      <div className="tablecon">
+        <table user={currentUser} loading={loading}>
+          <thead
+            style={{
+              textTransform: "uppercase",
+              background: " rgba(55, 65, 81,1)",
+              color: "rgba(156, 163, 175,1)",
+              fontSize: "0.75rem",
+              lineHeight: "1rem",
+            }}
+          >
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                <div className="td">#</div>
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Name
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Device
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Status
+              </th>
+
+              <th scope="col" className="px-6 py-3">
+                Action
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {user.map((data, index) => {
+              return (
+                <tr key={index} className="tablerow">
+                  <th className="px-6 py-3">
+                    <div className="td">{index + 1}</div>
+                  </th>
+                  <th scope="row" className="flex">
+                    <img src={data.profile} alt="images" width={60} />
+                    <div className="pl-3">
+                      <div className="font-size">{data.name}</div>
+                    </div>
+                  </th>
+                  <td>Pc</td>
+                  <td>
+                    <div>{data.status}</div>
+                  </td>
+
+                  <td>
+                    <div className="tablelink">
+                      <Link
+                        className="btn-primary"
+                        to={`/userUpdate/${data._id}`}
+                      >
+                        Edit user
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(data._id)}
+                        className="btn-danger"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default Cancele;

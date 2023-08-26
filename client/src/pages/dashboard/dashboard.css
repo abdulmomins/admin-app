@@ -1,0 +1,8 @@
+.mainDiv {
+  display: flex;
+  background: #eeeeee;
+  justify-content: center;
+  margin-top: 20px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  height: 100vh;
+}

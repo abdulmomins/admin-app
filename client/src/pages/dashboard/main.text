@@ -1,0 +1,10 @@
+{/* colum one start */}
+        <div className="column">
+          <div className="card">
+            <h3>
+              <FontAwesomeIcon icon={faUsers} />
+            </h3>
+            <h1>{user.length}</h1>
+          </div>
+        </div>
+        {/* colum one end */}

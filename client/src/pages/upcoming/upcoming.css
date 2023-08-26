@@ -1,0 +1,59 @@
+/* Remove extra left and right margins, due to padding */
+.cardColumn {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 30px;
+}
+.cardRow {
+  margin: 20px -40px;
+  display: flex;
+  justify-content: center;
+}
+.cardImg {
+  width: 250px;
+}
+/* Clear floats after the columns */
+.cardRow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 1200px) {
+  .cardColumn {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .cardColumn {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  .cardRow {
+    display: inline-block;
+    width: 50%;
+    margin-left: 8px;
+  }
+}
+
+/* Style the counter cards */
+.card1 {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #f1f1f1;
+}
+.cardDetails {
+  padding: 10px;
+}
+.mainCard {
+  display: grid;
+  margin-top: 20px;
+}
+
+.mainCard h3 {
+  text-align: center;
+  color: #636262;
+  margin-top: 20px;
+}
